@@ -39,7 +39,7 @@ ORDS is a major security feature, and the most important properties of ORDS from
 Where do ORDS differ from building yours own API written in a language like node.js or Python? The main difference is a) the security and b) the simplicity. You write no other code than PL/SQL or SQL that is behind the REST API, ORDS via metadata handles the rest.  
 In this lab we will demonstrate how you easily can add database updates from a tiny IoT edge to Autonomous via ORDS REST API, apply Machine Learning on the data, protected by the authorization of the Autonomous Database, and visualize the data in a simple secure APEX application.  
 
-![Autonomous ORDS security Architecture](images/architecturev2.png)  
+
   
 ### Protect ORDS REST API with Oracle OCI Next Generation Firewall
 
@@ -47,7 +47,7 @@ In interest of time, configuration of the Firewall, and building a complete OCI 
 The architecture can easily be extended run Oracle ATP on a private IP only and filter all ORDS REST API through the NGFW.
 For details please refer to: [OCI Network Firewall](https://docs.oracle.com/en/solutions/oci-network-firewall/index.html#GUID-875E911C-8D7D-4205-952B-5E8FAAD6C6D3)  
 
-![OCI NGFW](images/oci-network-firewall-arch.png)  
+![Autonomous ORDS security Architecture](images/architecturev2.png)  
 
 
 ## Using Machine Learning and predictions in Autonomous Database
