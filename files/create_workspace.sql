@@ -18,7 +18,9 @@ declare
 begin
     for i in 1..user_count loop
         begin
-            username:=base_username||trim(to_char(i,'09'));
+            if (user_count >1) then
+                username:=base_username||trim(to_char(i,'09'));
+            end if;
             APEX_INSTANCE_ADMIN.ADD_WORKSPACE(
                 p_workspace=>username,
                 p_primary_schema=>username );
