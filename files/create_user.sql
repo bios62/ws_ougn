@@ -1,7 +1,7 @@
 --  Creates database users for the workshops
 --
 --  (c) Inge Os 2024
---  20.08.24
+--  08.05.25
 --
 -- Require run of the package lab_config
 set serveroutput on
@@ -32,7 +32,7 @@ begin
                 username:=base_username;
             end if;
             -- USER SQL
-            stmt:='CREATE USER '||username||' IDENTIFIED BY '||lab_config.initial_password;
+            stmt:='CREATE USER '||username||' IDENTIFIED BY '||lab_config.lab_password;
             execute immediate stmt;
             -- ADD ROLES
             stmt:='GRANT CONNECT,RESOURCE,'||additional_roles ||' TO '||username;
@@ -64,8 +64,8 @@ begin
             );
             commit;
             -- Password
-            stmt:='ALTER USER '||username||' identified by '||workshop_password;
-            execute immediate stmt;
+            -- stmt:='ALTER USER '||username||' identified by '||workshop_password;
+            -- execute immediate stmt;
             dbms_output.put_line('User: '||username||' Successfully created');
             if user_count = 1 then
                exit;
