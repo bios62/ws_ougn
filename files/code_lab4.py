@@ -1,7 +1,7 @@
 #
 #  Code for Autonomous Workshop
 #
-# (c) Frode Pedersen Oracle, Inge Os Oracle
+# (c) 2025, Frode Pedersen Oracle, Inge Os Oracle
 #
 # Under Gnu GPL
 #
@@ -19,22 +19,41 @@ import adafruit_ahtx0
 import supervisor
 import microcontroller
 import json
+import os
 
 #########################################################
 #
 #
-# Globals
+# Globals 
 #
+config={}
+#
+#  Constants
+#
+REST_URI = "rest_uri"
+ORDS_USER = 'ords_user'
+ORDS_PASSWORD="ords_password"
+SENSOR_API='sensor_API'
+SPEED_API='speed_API'
+DEBUG_LEVEL='debug_level'
+MEMORY_THRESHOLD = 'memory_treshold'
+MAX_ITERATIONS_BEFORE_RESTART = 'iterations'
+POST_SLEEP_TIME = 'post_sleep_time'
+NET_WIFI_SSID_BASE='netXXX_wifi_ssid'
+NET_WIFI_PASSWORD_BASE='netXXX_wifi_password'
+#
+# Default values
+#
+config[REST_URI] = 'https://myadburl.adb.eu-frankfurt-1.oraclecloudapps.com'
+config[ORDS_USER] = 'myordsuser'
+config[SENSOR_API]='/sensorapi/'
+config[SPEED_API]='/wsapi/V1/kmh'
+config[DEBUG_LEVEL] = 1  #  Set to 1 to dump mem stats for each gc call
+config[MEMORY_THRESHOLD] = 2006000
+config[MAX_ITERATIONS_BEFORE_RESTART] = 1000
+config[POST_SLEEP_TIME] = 5
 
-REST_URI = 'https://<mydatabase>.adb.eu-frankfurt-1.oraclecloudapps.com'
-WORKSHOP_USER = 'someuser'
-SENSOR_API='/sensorapi/'
-SPEED_API='/wsapi/V1/kmh'
-debug_level = 1  #  Set to 1 to dump mem stats for each gc call
 pixel = None
-MEMORY_THRESHOLD = 2006000
-MAX_ITERATIONS_BEFORE_RESTART = 1000
-POST_SLEEP_TIME = 5
 VERSION = "060924 V2.0"
 
 #########################################################
@@ -42,10 +61,11 @@ VERSION = "060924 V2.0"
 # Add your network and correct URL for the REST API
 #########################################################
 
-wifi_networks = {
-    "mobile": {"wifinamename": "mobilenet", "ssid": "secret1"},
-    "home": {"wifinamename": "homenet", "ssid": "secret2"},
-}
+#wifi_networks = {
+##    "mobile": {"wifinamename": "S8sl", "ssid": "mercedes450sl"},
+#   "home": {"wifinamename": "homenet", "ssid": "secret2"},
+#}
+wifi_networks = {}
 
 
 #########################################################
@@ -58,18 +78,80 @@ wifi_networks = {
 #
 #########################################################
 def cleanup_memory(text=None):
+    global config
 
-    if debug_level > 0:
+    if config[DEBUG_LEVEL] > 0:
         if not text is None:
             print("Memfree label: " + text, end=" ")
         pregc_freemem = gc.mem_free()
     gc.collect()
     postgc_freemem = gc.mem_free()
-    if debug_level > 0:
+    if config[DEBUG_LEVEL] > 0:
         print(
             "Pre gc mem: " + str(pregc_freemem) + " post gc mem: " + str(postgc_freemem)
         )
     return postgc_freemem
+
+#########################################################
+#
+# get_config
+#
+# Read config from settings.toml
+#
+# Throws exception if config is missing
+# and turns on  AZURE Blink
+#
+# Globals:
+#   pixel,  LED driver
+#   config, DICT with current config
+#   debug_level
+#
+#########################################################
+def get_config():
+
+    global pixel
+    global config
+    global wifi_networks
+    #
+    #  Read Wifi setting for mandatory WiFi 
+    #
+    wifi_networks={}
+    #
+    # Get network config , iterate and generate names. max 9 names
+    #
+    for i in range (1,9):
+        wifi_ssid_label=NET_WIFI_SSID_BASE.replace('XXX',str(i))
+        wifi_password_label=NET_WIFI_PASSWORD_BASE.replace('XXX',str(i))
+        wifi_ssid = os.getenv(wifi_ssid_label)
+        wifi_password = os.getenv(wifi_password_label)
+        if wifi_ssid is None or wifi_password is None:
+            break
+        network_label='Net-'+str(i)
+        wifi_networks[network_label]={"wifinamename": wifi_ssid, "ssid":wifi_password }
+    if wifi_networks == {} :
+        print("Wifi SSID and Password not found in settings.toml")
+        raise ValueError
+    for key in config:
+            config_parameter= os.getenv(key)
+            if config_parameter is not None:
+                if isinstance(config[key],bool):  # Bools is subclass of int, needs to go first
+                    if config_parameter.upper() == 'TRUE':
+                        config[key]=True
+                    elif config_parameter.upper() == 'FALSE':
+                        config[key]=False
+                    else:
+                        print("Illegal configuration value "+key+" permit TRUE, FALSE only")
+                        raise ValueError
+                elif isinstance(config[key],int):
+                    try:
+                        config[key]=int(config_parameter)
+                    except:
+                        print("Illegal configuration value "+key+" Should be int, integer conversion failed")
+                        raise ValueError
+                else:  # Always assume string)
+                    config[key]=config_parameter
+
+
 
 #########################################################
 #
@@ -83,11 +165,9 @@ def cleanup_memory(text=None):
 def get_current_speed():
 
     global pixel
-    global REST_URI
-    global WORKSHOP_USER
-    global SPEED_API
+    global config
 
-    apiURL=REST_URI.rstrip('/')+'/ords/'+WORKSHOP_USER+'/'+SPEED_API
+    apiURL=config[REST_URI].rstrip('/')+'/ords/'+config[ORDS_USER]+config[SPEED_API]
     print("\nHTTP GET current_speed from Autonomous, URL: " + apiURL)
     #
     # Clean memory before allocating socket resources
@@ -107,6 +187,16 @@ def get_current_speed():
     # Two types of error may occur, either a exception is thrown (network error)
     # or HTTP Error (HTTP-400 - HTTP-500)
     #
+    current_speed=0
+    headers = {"Content-Type": "application/json"}
+    print("-" * 40)
+    response = requests.get(apiURL, headers=headers)
+    if response.status_code <=201:
+        print('Current speed:'+response.text)
+        current_speed=json.loads(response.text)['items'][0]['kmh']
+
+    else:
+        print('GET Failed status code:'+response.status_code)
     try:
         # application/json
         current_speed=0
@@ -115,7 +205,7 @@ def get_current_speed():
         response = requests.get(apiURL, headers=headers)
         if response.status_code <=201:
             print('Current speed:'+response.text)
-            current_speed=json.loads(response.text)['items'][0]['current_speed']
+            current_speed=json.loads(response.text)['items'][0]['kmh']
 
         else:
             print('GET Failed status code:'+response.status_code)
@@ -142,13 +232,12 @@ def get_current_speed():
 def post_to_rest(millicelsius,hum,kmh):
 
     global pixel
-    global REST_URI
-    global WORKSHOP_USER
+    global config
 
     #
     # Create JSON payload
     #
-    apiURL=apiURL=REST_URI.rstrip('/')+'/ords/'+WORKSHOP_USER+SENSOR_API
+    apiURL=config[REST_URI].rstrip('/')+'/ords/'+config[ORDS_USER]+config[SENSOR_API]
     #
     #  Format {"temp":"actual temp"}
     #  Convert millicelcius to celcius
@@ -260,6 +349,7 @@ def printWifi():
 def main():
 
     global pixel
+    global config
 
     print(f"\nStart: Program version {VERSION} Microcontroller Device: ", end=" ")
     hostname = "QTPY" + str(int.from_bytes(microcontroller.cpu.uid, "little") >> 29)
@@ -271,12 +361,16 @@ def main():
         pixel.fill((255 - x, 255, 255 - x))
         time.sleep(0.025)
     restartCnt = 0
-    time.sleep(10.0)
+    time.sleep(5.0)
     #
     # Collect and prtint board MAC address, if set
     #
     MACaddress = [hex(i) for i in wifi.radio.mac_address]
     print(f"Device MAC address: {MACaddress}")
+    #
+    #  get configuration
+    #
+    get_config()
     #
     #  Connect to wifi, reload if it fails
     #
@@ -315,7 +409,7 @@ def main():
         # If Current memory is below memor Threashold, continue
         # Otherwise reboot
         #
-        if current_memory < MEMORY_THRESHOLD:
+        if current_memory < config[MEMORY_THRESHOLD]:
             print(f"\nMemory restart -Green->Red")
             for x in range(255):
                 pixel.fill((x, 255 - x, 0))
@@ -329,7 +423,7 @@ def main():
         #
         restartCnt = restartCnt + 1
         print(f"restartCnt: {restartCnt} ")
-        if restartCnt > MAX_ITERATIONS_BEFORE_RESTART:
+        if restartCnt > config[MAX_ITERATIONS_BEFORE_RESTART]:
             print("Max iterations reached, restart - restartCnt - white 20 sec")
             cleanup_memory()
             pixel.fill((255, 255, 255))
@@ -411,13 +505,13 @@ def main():
             #
             # Post Successfull
             #
-            print(f"\nPost Autonomus - OK - Green {POST_SLEEP_TIME} sec")
+            print(f"\nPost Autonomus - OK - Green {config[POST_SLEEP_TIME]} sec")
             cleanup_memory()
             pixel.fill((0, 255, 0))
             #
             #  Wait for next iteration
             #
-            time.sleep(POST_SLEEP_TIME)
+            time.sleep(config[POST_SLEEP_TIME])
         else:
             #
             #  REST HTTP_STATUS != 200 or 201
@@ -426,7 +520,7 @@ def main():
 
             cleanup_memory()
             pixel.fill((255, 64, 0))
-            time.sleep(POST_SLEEP_TIME)
+            time.sleep(config[POST_SLEEP_TIME])
             print("\nPost Autonomous -  - : Green -> blue")
 
         for x in range(255):
