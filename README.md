@@ -144,9 +144,9 @@ In this lab you will create the different AI ML models, and test/verify your mod
   
 The lab is run as a Notebook. Import the Notebook [lab2.dsnb](files/lab2.dsnb) and follow the Notebook instructions 
   
-> :warning: As shown in lab1, remember to switch notebooktype to `tp`
+> :warning: As shown in lab1, remember to switch notebooktype to `low`
 
-![](images/connectuiontype.png)
+![image of low](images/connectuiontype.png)
   
 ### Vector seacrhc loadspeaker Lab   
   
