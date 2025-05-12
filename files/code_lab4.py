@@ -61,10 +61,6 @@ VERSION = "060924 V2.0"
 # Add your network and correct URL for the REST API
 #########################################################
 
-#wifi_networks = {
-##    "mobile": {"wifinamename": "S8sl", "ssid": "mercedes450sl"},
-#   "home": {"wifinamename": "homenet", "ssid": "secret2"},
-#}
 wifi_networks = {}
 
 
