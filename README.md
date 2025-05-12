@@ -146,7 +146,7 @@ The lab is run as a Notebook. Import the Notebook [lab2.dsnb](files/lab2.dsnb) a
   
 > :warning: As shown in lab1, remember to switch notebooktype to `low`
 
-![image of low](images/connectuiontype.png)
+![image of low](images/connectiontype.png)
   
 ### Vector seacrhc loadspeaker Lab   
   
