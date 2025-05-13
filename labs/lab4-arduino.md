@@ -53,7 +53,7 @@ Each time a new version of code.py is saved on the device, it reboots.
 The Python code can be written in any code editor, text editor and be saved directoy to the device,
 or be saved locally and copied onto the device.
 
-[!Windows Example](images/circuitpi_dir.png)
+![Windows Example](images/circuitpy_dir.png)
 
 ## LAB configuration instructions
 
@@ -239,14 +239,35 @@ The first thing is to determine the COM port used.
 By using Device manager (right clokc on Windows logo at task bar, select device manager)  
 the allocated COM port is visual.  
 
-![Device Manager](images/device_manager.png)
+![Device Manager](images/device_manager.png)  
 
 Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
   
-![Putty view](images/putty-serial.png)
+![Putty view](images/device_manager.png)  
 
 
-## MAC book with terminal
+## MAC book with terminal  
+  
+First identify the USB modem device  
+
+```
+mymac % ls /dev/tty.usb*
+/dev/tty.usbmodemC7FD1A8F1F441
+mymac %
+``` 
+  
+  Connect to the device with ie. screeen command
+
+```
+mymac % screen /dev/tty.usbmodemC7FD1A8F1F441  115200
+[detached]
+mymac %
+```
+
+Typical display after atatching with screen (screen -r)  
+
+![Screen output](images/screen_mac.png)
+
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
 
