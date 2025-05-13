@@ -41,18 +41,53 @@ JST SH 4-PIN CABLE:
 https://www.digikey.no/no/products/detail/adafruit-industries-llc/4210/10230021
 
 
-## Instructions
+## Device usage from your laptop
 
-Unpack both boards. Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do. 
+The device will mount it selves as a USB drive on the laptop.
+For windows users, typical drivename is `CIRCUITPY (E:)`
+For MAC users the device mounts as /Volumes/CIRCUITPY
+  
+
+The code executed is saved in the file code.py at root level on the device. The name is manadtory.
+Each time a new version of code.py is saved on the device, it reboots.
+The Python code can be written in any code editor, text editor and be saved directoy to the device,
+or be saved locally and copied onto the device. 
+  
+
+
+  <img src="../images/mp1.png" alt="Drive for CIRCUITPY" width="600"/>
+  
+
+
+## Device initial configuration instructions (1-3)
+
+>**Preconfigurated devices**
+>  
+>  The instructions below are for reference, if you want to test out later  
+>  In this particular live-lab, the devices are prewired and preloaded with:  
+>- Required bootloader  
+>- Required Python request/response libraries  
+>- Required Python sensor libraries  
+>  Jump to [step 4, codelab and serial attachment](#step-4-configure-serial-communitcation) 
+
+If the device malfunction, you may try the complete procedure, steps 1-3 below for initializing the device.  
+
 
 ## Step 1 - Hardware
+  
+Unpack both boards.  
+> :warning: Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do.  
   
 The small cable and plugs are easy to damage so, first look at cable and identify the small blank metal pins on the plugs.  Locate the AHT20 text on the sensor-board and with the text oriented in the correct way - Carefully plug one end of the cable into the left white sockets - with the metal pins pointing down.  Then plug the other end into the white socket of the ESP32 controller.
 
 The two plugs on the AHT20 sensor is actually identical, and can be used to daisy chain multiple sensor.  To reduce failure rate of the cable sockets, try to not remove cable from device.  It is better to unplug at the AHT20 because you have two sockets - one spare if it gets damaged.  
 
+> 
+> Connect ESP32 to your laptop with the usb cable.  
+> If device start blinking RED / BLUE it is preconfigured – so continue at [step 4.](#step-4-configure-serial-communitcation).  
+> If not continue with step 2.  
 
-## Step 2 - Prepare the  QT Py ESP32-S2 device
+## Step 2 - Prepare the  QT Py ESP32-S2 device  (Can be skipped)
 
 The ESP 32 device needs to be flashed with a new boot loader that runs circiut python
 FeatherS3 device is peloaded with circiut boot loader
@@ -100,8 +135,10 @@ You will probably get an error message when the ESP32 reboot with the new softwa
 Reboot with the reboot button  
 
 If the bootloader is working correctly, you should now have a drive CIRCUITPY similar to the picture below:   
+  
 
-![Picture 1](../images/mp1.png)
+<img src="../images/mp1.png" alt="Drive for CIRCUITPY" width="600"/>
+  
 
 Adafruit maintains circiut python 9, and the latest version can be downloaded from [here](https://circuitpython.org/board/adafruit_qtpy_esp32s2/)  or [All versions here](https://adafruit-circuit-python.s3.amazonaws.com/index.html?prefix=bin/adafruit_qtpy_esp32s2/en_US/)  
 
@@ -146,7 +183,8 @@ The library files are:
 
 Files to be copied (V8):  
 
-![Picture 2](../images/mp2.png)  
+<img src="../images/mp2.png" alt="Drive for CIRCUITPY" width="600"/>
+  
 
 **Test of the device**
 
@@ -179,55 +217,120 @@ The recommended IDE for Circuity Python development, **mu** is found [here](http
   
 For developing python code it is recommended to use MU development Environment, which can be downloaded from: 
 
-[https://codewith.mu/en/download](https://codewith.mu/en/download)  
+[https://codewith.mu/en/download](https://codewith.mu/en/download) 
 
-## Step 4 - Prepare and test MU for ESP32-S2
+## Step 4 Configure serial communication
+
+ESP-32-S2 device communicates with the laptop over USB-Serial.
+The communication can be visualized in several ways:
+- Use a developemnt envrionment, like the [MU editor](#mu-development-envrionment-for-ESP32-S2), than automatically recognizes the serial device
+- For [Windows](#windows-with-putty) users, use putty
+- For [MAC](#MAC-book-with-terminal) users use terminal
+
+## MU development envrionment for ESP32-S2
 
 Start the MU environment - and select mode in upper left corner and the select CircuitPython  
+  
+<img src="../images/mp3.png" alt="MU Editor" width="800"/>
+  
 
-![Picture 3](../images/mp3.png)
 
 paste the contents of  code.py from one of the blink directories from GIT into the upper window, and use save button to run it.  
+   
+<img src="../images/mp4.png" alt="MU Editor" width="800"/>
 
-![Picture 4](../images/mp4.png)
 
 use the serial button to open the output window - where all text from print commands will show up  
   
-![Picture 5](../images/mp5.png)  
+  
+<img src="../images/mp5.png" alt="MU Editor" width="800"/>
+   
   
 You can now get a little bit experience with the ESP32 Circuitpython by changing the RGB (Red Green Blue) parameters to values between 0 and 255.  Every time you save file, the ESP32 will run the new version of the program.  
 
 You can also copy the lines with RGB and the following delay one or more times and change the colors and delays - to create more colorful blink sequences.  
 
-The other blink directories also contain versions of code.py with different blink sequences.  
+The other blink directories also contain versions of code.py with different blink sequences. 
+
+## Windows with putty
+
+The easiest way to communicate with the USB serial port on WIndows is to use putty.
+The first thing is to determine the COM port used.  
+By using Device manager (right clokc on Windows logo at task bar, select device manager)  
+the allocated COM port is visual.  
+  
+
+<img src="../images/device_manager.png" alt="Windows Device manager" width="600"/>
+
+
+Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
+  
+
+<img src="../images/putty_serial.png" alt="putty configuration" width="600"/>
+
+ 
+
+
+## MAC book with terminal  
+  
+First identify the USB modem device  
+
+```
+mymac % ls /dev/tty.usb*
+/dev/tty.usbmodemC7FD1A8F1F441
+mymac %
+``` 
+  
+  Connect to the device with ie. screeen command
+
+```
+mymac % screen /dev/tty.usbmodemC7FD1A8F1F441  115200
+[detached]
+mymac %
+```
+
+Typical display after attaching with screen (screen -r)  
+  
+<img src="../images/screen_mac.png" alt="MAC screen command" width="600"/>
+  
+
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
 
-Open [files/code_lab4.py](../files/code_lab4.py) program in a text editor.    
+Open [files/code_lab4.py](../files/code_lab4.py) program in a text editor, and inspect the code.
+Then open [files/settings.toml](../files/xettings.toml) and edit the wifi parameters, rest_uri and ords_user parameters.  
 
 This program connects to a wifi network - use your phone or the network provider by your instructor.  
 Program will then attempt to post temperature to the database.  
 
-Before running you must change the wifi parameters and the uri to your database schema.  
+Before running you must change the wifi parameters and the uri to your database schema in `settings.toml`.  
 
 **Set the URI for REST APIs**  
 
-Set the REST_URI and WORKSHOP_USER for your database envrionmen 
-```
-REST_URI = 'https://<mydatabase>.adb.eu-frankfurt-1.oraclecloudapps.com'
-WORKSHOP_USER = 'someuser'
-```
-Set your wifi conenction   
+
+The code uses settings.toml, for envrionment variables.  
+Set the REST_URI and WORKSHOP_USER for your database envrionmen, and wifi  
+The code loopes through all wifi (1..9) settings and tries the wifi conenction, until one conencts or all fails.  
+Edit settings.toml, and change rest_uri,ords-users, net1_wifi_password, net1_wifi_ssid.  
+If you will test on several wifi, add additional netx upto 9.   
   
 ```
-wifi_networks = {
-    "mobile": {"wifinamename": "mobilenet", "ssid": "secret1"},
-    "home": {"wifinamename": "myhomenet", "ssid": "secret2"},
-}
+rest_uri="https://my-<labuser>adb.eu-frankfurt-1.oraclecloudapps.com"
+ords_user="labusername"
+sensor_API="/sensorapi/"
+speed_API="/wsapi/V1/kmh"
+debug_level="15"
+memory_treshold="2006000"
+iterations="1000"
+post_sleep_time="5"
+net2_wifi_ssid="home"
+net2_wifi_password="xxx"
+net1_wifi_ssid="android"
+net1_wifi_password="xxx"
 
 ```  
 
-Click on the serial button on the top meny, to open the serial monitor.  
+View serial monitor from MU, putty or screen output.  
 
 Save the file to the device CIRCUITPY drive, top directory, under the name `code.py`, and you should see debug text in the lower window - while the LED will change colors while the program first tries to connect wifi, reads sensor, and then posts to the database.  
 
