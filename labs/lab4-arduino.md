@@ -80,7 +80,7 @@ The two plugs on the AHT20 sensor is actually identical, and can be used to dais
 
 > 
 > Connect ESP32 to your laptop with the usb cable.  
-> If device start blinking RED / BLUE it is preconfigured – so continue at step 4. (eller 3).  
+> If device start blinking RED / BLUE it is preconfigured – so continue at [step 4.](#step-4-configure-serial-communitcation).  
 > If not continue with step 2.  
 
 ## Step 2 - Prepare the  QT Py ESP32-S2 device  (Can be skipped)
