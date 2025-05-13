@@ -183,7 +183,8 @@ The library files are:
 
 Files to be copied (V8):  
 
-![Picture 2](../images/mp2.png)  
+<img src="../images/mp2.png" alt="Drive for CIRCUITPY" width="600"/>
+  
 
 **Test of the device**
 
@@ -218,7 +219,7 @@ For developing python code it is recommended to use MU development Environment, 
 
 [https://codewith.mu/en/download](https://codewith.mu/en/download) 
 
-## Step 4 Configure serial communitcation
+## Step 4 Configure serial communication
 
 ESP-32-S2 device communicates with the laptop over USB-Serial.
 The communication can be visualized in several ways:
@@ -230,19 +231,19 @@ The communication can be visualized in several ways:
 
 Start the MU environment - and select mode in upper left corner and the select CircuitPython  
   
-<img src="../images/mp3.png" alt="MU Editor" width="600"/>
+<img src="../images/mp3.png" alt="MU Editor" width="800"/>
   
 
 
 paste the contents of  code.py from one of the blink directories from GIT into the upper window, and use save button to run it.  
    
-<img src="../images/mp4.png" alt="MU Editor" width="600"/>
+<img src="../images/mp4.png" alt="MU Editor" width="800"/>
 
 
 use the serial button to open the output window - where all text from print commands will show up  
   
   
-<img src="../images/mp5.png" alt="MU Editor" width="600"/>
+<img src="../images/mp5.png" alt="MU Editor" width="800"/>
    
   
 You can now get a little bit experience with the ESP32 Circuitpython by changing the RGB (Red Green Blue) parameters to values between 0 and 255.  Every time you save file, the ESP32 will run the new version of the program.  
@@ -259,13 +260,13 @@ By using Device manager (right clokc on Windows logo at task bar, select device 
 the allocated COM port is visual.  
   
 
-<img src="../images/device_manager.png" alt="Windows Device manager" width="400"/>
+<img src="../images/device_manager.png" alt="Windows Device manager" width="600"/>
 
 
 Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
   
 
-<img src="../images/putty_serial.png" alt="putty configuration" width="400"/>
+<img src="../images/putty_serial.png" alt="putty configuration" width="600"/>
 
  
 
@@ -290,7 +291,7 @@ mymac %
 
 Typical display after attaching with screen (screen -r)  
   
-<img src="../images/screen:mac.png" alt="Windows Device manager" width="400"/>
+<img src="../images/screen_mac.png" alt="MAC screen command" width="600"/>
   
 
 
