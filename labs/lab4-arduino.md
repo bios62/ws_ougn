@@ -51,10 +51,13 @@ For MAC users the device mounts as /Volumes/CIRCUITPY
 The code executed is saved in the file code.py at root level on the device. The name is manadtory.
 Each time a new version of code.py is saved on the device, it reboots.
 The Python code can be written in any code editor, text editor and be saved directoy to the device,
-or be saved locally and copied onto the device.
+or be saved locally and copied onto the device. 
   
+
+
   <img src="../images/mp1.png" alt="Drive for CIRCUITPY" width="600"/>
-[Windows Example](../images/mp1.png)
+  
+
 
 ## Device initial configuration instructions (1-3)
 
@@ -132,8 +135,10 @@ You will probably get an error message when the ESP32 reboot with the new softwa
 Reboot with the reboot button  
 
 If the bootloader is working correctly, you should now have a drive CIRCUITPY similar to the picture below:   
+  
 
-![Picture 1](../images/mp1.png)
+<img src="../images/mp1.png" alt="Drive for CIRCUITPY" width="600"/>
+  
 
 Adafruit maintains circiut python 9, and the latest version can be downloaded from [here](https://circuitpython.org/board/adafruit_qtpy_esp32s2/)  or [All versions here](https://adafruit-circuit-python.s3.amazonaws.com/index.html?prefix=bin/adafruit_qtpy_esp32s2/en_US/)  
 
@@ -224,16 +229,21 @@ The communication can be visualized in several ways:
 ## MU development envrionment for ESP32-S2
 
 Start the MU environment - and select mode in upper left corner and the select CircuitPython  
+  
+<img src="../images/mp3.png" alt="MU Editor" width="600"/>
+  
 
-![Picture 3](../images/mp3.png)
 
 paste the contents of  code.py from one of the blink directories from GIT into the upper window, and use save button to run it.  
+   
+<img src="../images/mp4.png" alt="MU Editor" width="600"/>
 
-![Picture 4](../images/mp4.png)
 
 use the serial button to open the output window - where all text from print commands will show up  
   
-![Picture 5](../images/mp5.png)  
+  
+<img src="../images/mp5.png" alt="MU Editor" width="600"/>
+   
   
 You can now get a little bit experience with the ESP32 Circuitpython by changing the RGB (Red Green Blue) parameters to values between 0 and 255.  Every time you save file, the ESP32 will run the new version of the program.  
 
@@ -247,12 +257,17 @@ The easiest way to communicate with the USB serial port on WIndows is to use put
 The first thing is to determine the COM port used.  
 By using Device manager (right clokc on Windows logo at task bar, select device manager)  
 the allocated COM port is visual.  
+  
 
-![Device Manager](../images/device_manager.png)  
+<img src="../images/device_manager.png" alt="Windows Device manager" width="400"/>
+
 
 Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
   
-![Putty view](../images/device_manager.png)  
+
+<img src="../images/putty_serial.png" alt="putty configuration" width="400"/>
+
+ 
 
 
 ## MAC book with terminal  
@@ -273,9 +288,10 @@ mymac % screen /dev/tty.usbmodemC7FD1A8F1F441  115200
 mymac %
 ```
 
-Typical display after atatching with screen (screen -r)  
-
-![Screen output](../images/screen_mac.png)
+Typical display after attaching with screen (screen -r)  
+  
+<img src="../images/screen:mac.png" alt="Windows Device manager" width="400"/>
+  
 
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
