@@ -52,8 +52,9 @@ The code executed is saved in the file code.py at root level on the device. The 
 Each time a new version of code.py is saved on the device, it reboots.
 The Python code can be written in any code editor, text editor and be saved directoy to the device,
 or be saved locally and copied onto the device.
-
-![Windows Example](../images/mp1.png)
+  
+  <img src="../images/mp1.png" alt="Drive for CIRCUITPY" width="600"/>
+[Windows Example](../images/mp1.png)
 
 ## Device initial configuration instructions (1-3)
 
