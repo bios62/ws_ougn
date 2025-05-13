@@ -270,7 +270,7 @@ mymac %
 
 Typical display after atatching with screen (screen -r)  
 
-![Screen output](images/screen_mac.png)
+![Screen output](../images/screen_mac.png)
 
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
