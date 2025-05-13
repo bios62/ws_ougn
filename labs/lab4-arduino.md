@@ -55,20 +55,24 @@ or be saved locally and copied onto the device.
 
 ![Windows Example](../images/mp1.png)
 
-## LAB configuration instructions
+## Device initial configuration instructions (1-3)
 
->**Instructions note**
+>**Preconfigurated devices**
 >  
 >  The instructions below are for reference, if you want to test out later  
->  In the lab the devices are prewrired and preloaded with:  
+>  In this particular live-lab, the devices are prewired and preloaded with:  
 >- Required bootloader  
 >- Required Python request/response libraries  
 >- Required Python sensor libraries  
->  Jump to [Connect the device to your laptop](#step-4-configure-serial-communitcation)  
+>  Jump to [step 4, codelab and serial attachment](#step-4-configure-serial-communitcation) 
 
-Unpack both boards. Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do. 
+If the device malfunction, you may try the complete procedure, steps 1-3 below for initializing the device.  
+
 
 ## Step 1 - Hardware
+  
+Unpack both boards.  
+> :warning: Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do.  
   
 The small cable and plugs are easy to damage so, first look at cable and identify the small blank metal pins on the plugs.  Locate the AHT20 text on the sensor-board and with the text oriented in the correct way - Carefully plug one end of the cable into the left white sockets - with the metal pins pointing down.  Then plug the other end into the white socket of the ESP32 controller.
 
