@@ -53,7 +53,7 @@ Each time a new version of code.py is saved on the device, it reboots.
 The Python code can be written in any code editor, text editor and be saved directoy to the device,
 or be saved locally and copied onto the device.
 
-![Windows Example](images/circuitpy_dir.png)
+![Windows Example](../images/mp1.png)
 
 ## LAB configuration instructions
 
@@ -239,11 +239,11 @@ The first thing is to determine the COM port used.
 By using Device manager (right clokc on Windows logo at task bar, select device manager)  
 the allocated COM port is visual.  
 
-![Device Manager](images/device_manager.png)  
+![Device Manager](../images/device_manager.png)  
 
 Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
   
-![Putty view](images/device_manager.png)  
+![Putty view](../images/device_manager.png)  
 
 
 ## MAC book with terminal  
@@ -271,12 +271,13 @@ Typical display after atatching with screen (screen -r)
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
 
-Open [files/code_lab4.py](../files/code_lab4.py) program in a text editor.    
+Open [files/code_lab4.py](../files/code_lab4.py) program in a text editor, and inspect the code.
+Then open [files/settings.toml](../files/xettings.toml) and edit the wifi parameters, rest_uri and ords_user parameters.  
 
 This program connects to a wifi network - use your phone or the network provider by your instructor.  
 Program will then attempt to post temperature to the database.  
 
-Before running you must change the wifi parameters and the uri to your database schema.  
+Before running you must change the wifi parameters and the uri to your database schema in `settings.toml`.  
 
 **Set the URI for REST APIs**  
 
