@@ -41,7 +41,30 @@ JST SH 4-PIN CABLE:
 https://www.digikey.no/no/products/detail/adafruit-industries-llc/4210/10230021
 
 
-## Instructions
+## Device usage from your laptop
+
+The device will mount it selves as a USB drive on the laptop.
+For windows users, typical drivename is `CIRCUITPY (E:)`
+For MAC users the device mounts as /Volumes/CIRCUITPY
+  
+
+The code executed is saved in the file code.py at root level on the device. The name is manadtory.
+Each time a new version of code.py is saved on the device, it reboots.
+The Python code can be written in any code editor, text editor and be saved directoy to the device,
+or be saved locally and copied onto the device.
+
+[!Windows Example](images/circuitpi_dir.png)
+
+## LAB configuration instructions
+
+>**Instructions note**
+>  
+>  The instructions below are for reference, if you want to test out later
+>  In the lab the devices are prewrired and preloaded with:
+>- Required bootloader
+>- Required Python request/response libraries
+>- Required Python sensor libraries
+>   Jump to [Connect the device to your laptop](#step-4-configure-serial-communitcation)
 
 Unpack both boards. Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do. 
 
@@ -52,7 +75,7 @@ The small cable and plugs are easy to damage so, first look at cable and identif
 The two plugs on the AHT20 sensor is actually identical, and can be used to daisy chain multiple sensor.  To reduce failure rate of the cable sockets, try to not remove cable from device.  It is better to unplug at the AHT20 because you have two sockets - one spare if it gets damaged.  
 
 
-## Step 2 - Prepare the  QT Py ESP32-S2 device
+## Step 2 - Prepare the  QT Py ESP32-S2 device  (Can be skipped)
 
 The ESP 32 device needs to be flashed with a new boot loader that runs circiut python
 FeatherS3 device is peloaded with circiut boot loader
@@ -179,9 +202,17 @@ The recommended IDE for Circuity Python development, **mu** is found [here](http
   
 For developing python code it is recommended to use MU development Environment, which can be downloaded from: 
 
-[https://codewith.mu/en/download](https://codewith.mu/en/download)  
+[https://codewith.mu/en/download](https://codewith.mu/en/download) 
 
-## Step 4 - Prepare and test MU for ESP32-S2
+## Step 4 Configure serial communitcation
+
+ESP-32-S2 device communicates with the laptop over USB-Serial.
+The communication can be visualized in several ways:
+- Use a developemnt envrionment, like the [MU editor](#mu-development-envrionment-for-ESP32-S2), than automatically recognizes the serial device
+- For [Windows](#windows-with-putty) users, use putty
+- For [MAC](#MAC-book-with-terminal) users use terminal
+
+## MU development envrionment for ESP32-S2
 
 Start the MU environment - and select mode in upper left corner and the select CircuitPython  
 
@@ -199,7 +230,23 @@ You can now get a little bit experience with the ESP32 Circuitpython by changing
 
 You can also copy the lines with RGB and the following delay one or more times and change the colors and delays - to create more colorful blink sequences.  
 
-The other blink directories also contain versions of code.py with different blink sequences.  
+The other blink directories also contain versions of code.py with different blink sequences. 
+
+## Windows with putty
+
+The easiest way to communicate with the USB serial port on WIndows is to use putty.
+The first thing is to determine the COM port used.  
+By using Device manager (right clokc on Windows logo at task bar, select device manager)  
+the allocated COM port is visual.  
+
+![Device Manager](images/device_manager.png)
+
+Start putty, create new session, select serial with 115200 baud rate, and use the USB COM displayed in teh device manager.  
+  
+![Putty view](images/putty-serial.png)
+
+
+## MAC book with terminal
 
 ## Step 5 - Configure and start the code_lab4.py from the sensor directory
 
