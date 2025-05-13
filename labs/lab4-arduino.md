@@ -59,12 +59,12 @@ or be saved locally and copied onto the device.
 
 >**Instructions note**
 >  
->  The instructions below are for reference, if you want to test out later
->  In the lab the devices are prewrired and preloaded with:
->- Required bootloader
->- Required Python request/response libraries
->- Required Python sensor libraries
->   Jump to [Connect the device to your laptop](#step-4-configure-serial-communitcation)
+>  The instructions below are for reference, if you want to test out later  
+>  In the lab the devices are prewrired and preloaded with:  
+>- Required bootloader  
+>- Required Python request/response libraries  
+>- Required Python sensor libraries  
+>  Jump to [Connect the device to your laptop](#step-4-configure-serial-communitcation)  
 
 Unpack both boards. Try not to touch the 3x3 mm blank sensor - it will hurt its accuracy if you do. 
 
