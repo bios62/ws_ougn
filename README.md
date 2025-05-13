@@ -82,11 +82,8 @@ For the lab you may either use a python script where the sensor-data is manually
 - 23ai update
 - Lab 1: Data Model creation and data load
 - Lab 2: AI and ML lab
-- Vector search presentation and discussion, based on loadspeaker samples
-- Vector Lab: Vector search and select AI demo Notebook
 - Lab 3: REST and JSON Duality view
 - Lab 4: Circuit Python sensor lab
-- Lab 5: APEX Low code development, AI generated 
 
 ## Configuration of the workshop in your own autonomous database
 
@@ -147,18 +144,6 @@ The lab is run as a Notebook. Import the Notebook [lab2.dsnb](files/lab2.dsnb) a
 > :warning: As shown in lab1, remember to switch notebooktype to `low`
 
 ![image of low](images/connectiontype.png)
-  
-### Vector seacrhc loadspeaker Lab   
-  
-  
-The lab is run as a Notebook. Import the Notebook [LAB2_part_2_Vector.ipynb](files/LAB2_part_2_Vector.ipynb) and follow the Notebook instructions  
-  
-### Workshp Vector serach and select AI Lab
-
-In this lab you will paly wih vector search and select AI: Let AI enerate the SQL statements for you 
-In the lab we will explore Vector search in the database.   
-  
-The lab is run as a Notebook. Import the Notebook [VectorSearch_SelectAI.ipynb](files/VectorSearch_SelectAI.ipynb) and follow the Notebook instructions 
 
 ###  Workshop part 3
 
@@ -191,22 +176,7 @@ In this lab a Arduino based microcontroller for a temp sensor will be used to re
 The Arduino does not have a speed sensor, and the REST API used is /sensorapi that supplements the log-data record with the most recent value from the current_speed table.  
 
 [Instructions Lab 4 Arduino](labs/lab4-arduino.md) 
-
-## Workshop part 5
-
-Presentation of the APEX app, view [here](../files/Build with Low Code (APEX).pdf)
-
-In this lab you will logon to your apex environment and upload an APEX application that displays the predicted power consumption at the current temp/speed.
   
-You have a predefined APEX workspace, with the same username/password as your database actions username/password
-
-[Instructions Lab 5](labs/lab5.md)  
-
-## Workshop part 6
-
-Simulate or add real sensor-data
-Run APEX app and visualize prediction  
-
 ## Links and supporting documentation
 
 ![Arduino developer environment] (https://link-url-here.org)https://codewith.mu/)
