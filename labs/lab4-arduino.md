@@ -280,22 +280,30 @@ Before running you must change the wifi parameters and the uri to your database 
 
 **Set the URI for REST APIs**  
 
-Set the REST_URI and WORKSHOP_USER for your database envrionmen 
-```
-REST_URI = 'https://<mydatabase>.adb.eu-frankfurt-1.oraclecloudapps.com'
-WORKSHOP_USER = 'someuser'
-```
-Set your wifi conenction   
+
+The code uses settings.toml, for envrionment variables.  
+Set the REST_URI and WORKSHOP_USER for your database envrionmen, and wifi  
+The code loopes through all wifi (1..9) settings and tries the wifi conenction, until one conencts or all fails.  
+Edit settings.toml, and change rest_uri,ords-users, net1_wifi_password, net1_wifi_ssid.  
+If you will test on several wifi, add additional netx upto 9.   
   
 ```
-wifi_networks = {
-    "mobile": {"wifinamename": "mobilenet", "ssid": "secret1"},
-    "home": {"wifinamename": "myhomenet", "ssid": "secret2"},
-}
+rest_uri="https://my-<labuser>adb.eu-frankfurt-1.oraclecloudapps.com"
+ords_user="labusername"
+sensor_API="/sensorapi/"
+speed_API="/wsapi/V1/kmh"
+debug_level="15"
+memory_treshold="2006000"
+iterations="1000"
+post_sleep_time="5"
+net2_wifi_ssid="home"
+net2_wifi_password="xxx"
+net1_wifi_ssid="android"
+net1_wifi_password="xxx"
 
 ```  
 
-Click on the serial button on the top meny, to open the serial monitor.  
+View serial monitor from MU, putty or screen output.  
 
 Save the file to the device CIRCUITPY drive, top directory, under the name `code.py`, and you should see debug text in the lower window - while the LED will change colors while the program first tries to connect wifi, reads sensor, and then posts to the database.  
 
