@@ -192,7 +192,7 @@ def get_current_speed():
         current_speed=json.loads(response.text)['items'][0]['kmh']
 
     else:
-        print('GET Failed status code:'+response.status_code)
+        print('GET Failed status code:'+str(response.status_code))
     try:
         # application/json
         current_speed=0
@@ -204,7 +204,7 @@ def get_current_speed():
             current_speed=json.loads(response.text)['items'][0]['kmh']
 
         else:
-            print('GET Failed status code:'+response.status_code)
+            print('GET Failed status code:'+str(response.status_code))
     except Exception as e:
         print("\n HTTPS GET Exception")
         print(e)
