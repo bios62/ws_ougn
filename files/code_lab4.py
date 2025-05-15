@@ -272,6 +272,7 @@ def post_to_rest(millicelsius,hum,kmh):
             print('Posted sucsessfully')
     except Exception as e:
         print("\n HTTPS POST Exception")
+        print('POST Failed status code:'+str(response.status_code))
         print(e)
         return -1
     print ("return from post")
